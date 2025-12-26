@@ -4,9 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.score_routes import router as score_routes
 from app.api.translate_routes import router as translate_router
 from app.api.auth_routes import router as auth_router
-
+from app.database.base import Base
+from app.database.session import engine
+from app.models.user import User, Translation
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 # Enable CORS
 app.add_middleware(
